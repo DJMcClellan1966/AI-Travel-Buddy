@@ -1,0 +1,10 @@
+{
+  "OpenAI": {
+    "ApiKey": "your-openai-api-key-here",
+    "Model": "gpt-4",
+    "MaxTokens": 4000
+  },
+  "Storage": {
+    "ItinerariesPath": "./itineraries"
+  }
+}
