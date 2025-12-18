@@ -38,6 +38,8 @@ public class GpsCoordinate
     /// </summary>
     public override string ToString()
     {
-        return $"{Latitude:F4}° N, {Longitude:F4}° E";
+        var latDirection = Latitude >= 0 ? "N" : "S";
+        var lonDirection = Longitude >= 0 ? "E" : "W";
+        return $"{Math.Abs(Latitude):F4}° {latDirection}, {Math.Abs(Longitude):F4}° {lonDirection}";
     }
 }
