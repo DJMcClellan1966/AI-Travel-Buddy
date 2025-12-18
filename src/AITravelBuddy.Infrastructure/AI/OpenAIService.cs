@@ -137,19 +137,22 @@ Please generate a detailed, day-by-day itinerary in JSON format as specified in 
         {
             // Clean up the response to extract JSON if wrapped in markdown code blocks
             var jsonContent = response.Trim();
-            if (jsonContent.StartsWith("```"))
-            {
-                var lines = jsonContent.Split('\n');
-                jsonContent = string.Join('\n', lines.Skip(1).SkipLast(1));
-            }
+            
+            // Remove markdown code blocks more robustly
             if (jsonContent.StartsWith("```json"))
             {
-                jsonContent = jsonContent.Substring(7);
+                jsonContent = jsonContent[7..]; // Remove ```json
             }
+            else if (jsonContent.StartsWith("```"))
+            {
+                jsonContent = jsonContent[3..]; // Remove ```
+            }
+            
             if (jsonContent.EndsWith("```"))
             {
-                jsonContent = jsonContent.Substring(0, jsonContent.Length - 3);
+                jsonContent = jsonContent[..^3]; // Remove trailing ```
             }
+            
             jsonContent = jsonContent.Trim();
 
             var jsonDoc = JsonDocument.Parse(jsonContent);
